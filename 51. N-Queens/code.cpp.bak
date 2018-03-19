@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<vector<string>> solveNQueens(int n) {
+    	 
+        
+    }
+private:
+	  void createMatrix(int n)
+	  {
+	  	  m_pStateMatrix = new int*[n]
+	  	  for(int i = 0 ; i < n ; ++i)
+	  	  {
+	  	  	 m_pStateMatrix[i] = new int[n];
+	  	  	 memset(m_pStateMatrix[i], 0, sizeof(int) * n);
+	  	  }
+	  	  m_nSize = n;
+	  } 
+	  
+	  vector<vector<string>> convert()
+	  {
+	  	  for (int i = 0 ;)
+	  }
+private:
+	  int ** m_pStateMatrix;
+	  int m_nSize;
+};

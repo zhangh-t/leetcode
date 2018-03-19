@@ -1,0 +1,48 @@
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        vector<vector<string>> res;
+        if (strs.empty()) return res;
+        else if(strs.size() == 1) {res.push_back(vector<string>(1, strs[0])); return res;}
+        else
+        {
+        	 int curIndex = 0;
+        	 int mask;
+        	 map<int, int> maskMap;
+        	 int size = strs.size();
+        	 int i = 0;
+        	 while(i < size)
+        	 {
+        	 	  string& str = strs[i];
+        	 	  mask = calcMask(str);
+        	 	  auto iter = maskMap.find(mask);
+        	 	  if(iter == maskMap.end())
+        	 	  {
+        	 	  	 maskMap[mask] = curIndex++;
+        	 	  	 vector<string> vec;
+        	 	  	 vec.push_back(str);
+        	 	  	 res.push_back(vec);
+        	 	  }
+        	 	  else
+        	 	  {
+        	 	  	 res[iter->second].push_back(str);
+        	 	  }
+        	 	  ++i;
+        	 }
+        	 return res;
+        }
+    }
+private:
+	   int calcMask(string& str)
+	   {
+	   	  int res = 0;
+	   	  int size = str.length();
+	   	  int i = 0;
+	   	  while(i < size)
+	   	  {
+	   	  	 res |= 1 << (str[i] - 'a'); 
+	   	  	 ++i;
+	   	  }
+	   	  return res;
+	   }
+};

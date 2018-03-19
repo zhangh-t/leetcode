@@ -1,0 +1,57 @@
+class Solution {
+public:
+    string multiply(string num1, string num2) {
+        removeZero(num1);
+        removeZero(num2);
+        if(num1.empty() || num2.empty()) return "0";
+        else
+        {
+             string res;
+             int lpos, spos;
+             string& longger = num1;
+             string& shorter = num2;
+             if(num1.length() > num2.length())
+             {
+                 lpos = num1.length() - 1;
+                 spos = num2.length() - 1;
+             }
+             else
+             {
+                 lpos = num2.length() - 1;
+                 spos = num1.length() - 1;
+                 longger = num2;
+                 shorter = num1;
+             }
+              
+             vector<int> reverseResult(512, 0);
+             int nCur = 0;
+             for(; lpos >= 0 ; --lpos, ++nCur)
+             {
+                 int offset = 0;
+                 for(; spos >= 0; --spos, ++offset)
+                 {
+                     int multires = (shorter[spos] - '0') * (longger[lpos] - '0');
+                     reverseResult[nCur + offset] +=  multires % 10;
+                     reverseResult[nCur + offset + 1] += multires / 10;
+                 }
+             }
+             bool b =false;
+             for(int i = 512; i >= 0; --i)
+             {
+                 if(!b && reverseResult[i] == 0) continue;
+                 else b = true;
+                 res.push_back(reverseResult[i] + '0');
+             }
+             return res;
+        }
+    }
+private:
+    void removeZero(string& s)
+    {
+        for(auto iter = s.begin(); iter != s.end(); )
+        {
+            if(*iter == '0') iter = s.erase(iter);
+            else break;
+        }
+    }
+};

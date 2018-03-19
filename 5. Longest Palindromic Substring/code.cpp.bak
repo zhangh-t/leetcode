@@ -1,0 +1,39 @@
+#include <string.h>
+using namespace std;
+bool isPalindrome(const char* s, int nBase, int nRange)
+{
+    return s[nBase - nRange] == s[nBase + nRange];
+}
+
+class Solution
+{
+public:
+    string longestPalindrome(string s)
+    {
+        string sRet;
+        int nLength = s.length();
+        if(nLength == 1)
+          return s;
+        int nMaxLength = 0;
+        const char* sBuf = s.c_str();
+        for (int i = 1; i < nLength; ++i)
+        {
+            string sTmp;
+            int nRange = min(i, nLength - i);
+            for (int j = 0; j < nRange; ++j)
+            {
+                if (isPalindrome(sBuf, i, j))
+                {
+                    sTmp.insert(sTmp.begin(), sBuf[i - j]);
+                    sTmp.push_back(sBuf[i + j]);
+                }
+            }
+            if (sTmp.length() > nMaxLength)
+            {
+                sRet = sTmp;
+                nMaxLength = sTmp.length();
+            }
+        }
+        return sRet;
+    }
+};
